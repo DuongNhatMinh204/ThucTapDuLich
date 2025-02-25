@@ -1,13 +1,10 @@
 package com.nminh.thuctapdulich.controller;
 
+import com.nminh.thuctapdulich.model.request.UserLoginRequest;
 import com.nminh.thuctapdulich.model.request.UserRequest;
 import com.nminh.thuctapdulich.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -22,9 +19,9 @@ public class UserController {
         return " Register failed";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody UserRequest userRequest) {
-        if(userService.loginUser(userRequest)) {
+    @PostMapping ("/login")
+    public String login(@RequestBody UserLoginRequest userDTO) {
+        if(userService.loginUser(userDTO)) {
             return " Login success";
         }
         return "Login failed";

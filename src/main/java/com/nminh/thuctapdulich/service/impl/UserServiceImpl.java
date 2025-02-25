@@ -1,6 +1,7 @@
 package com.nminh.thuctapdulich.service.impl;
 
-import com.nminh.thuctapdulich.emuns.Role;
+import com.nminh.thuctapdulich.model.request.UserLoginRequest;
+import com.nminh.thuctapdulich.enums.Role;
 import com.nminh.thuctapdulich.entity.UserEntity;
 import com.nminh.thuctapdulich.model.request.UserRequest;
 import com.nminh.thuctapdulich.repository.impl.FileStorageUserRepositoryImpl;
@@ -15,10 +16,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
-    public boolean userExists(String username) {
+    public boolean userExists(String phone) {
         List<UserEntity> listUserEntity = fileStorageUserImpl.getAllUsers();
         for (UserEntity userEntity : listUserEntity) {
-            if (userEntity.getUsername().equals(username)) {
+            if (userEntity.getPhone().equals(phone)) {
                 return true;
             }
         }
@@ -27,12 +28,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean createUser(UserRequest userRequest) {
 
-        if (userExists(userRequest.getUsername())) {
+        if (userExists(userRequest.getPhone())) {
             return false;
         }
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(userRequest.getUsername());
+        // convert user request to user entity
+        userEntity.setPhone(userRequest.getPhone());
         userEntity.setPassword(userRequest.getPassword());
+        userEntity.setFullName(userRequest.getFullName());
+        userEntity.setEmail(userRequest.getEmail());
+        userEntity.setBirthday(userRequest.getBirthday());
         userEntity.setId(ID_Manage.getLastId()); // tao id moi
         userEntity.setRole(Role.GUEST);
 
@@ -44,11 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(UserRequest userRequest) {
+    public boolean loginUser(UserLoginRequest userDTO) {
         FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
         List<UserEntity> listUserEntity = fileStorageUserImpl.getAllUsers();
         for (UserEntity userEntity : listUserEntity) {
-            if(userEntity.getUsername().equals(userRequest.getUsername()) && userEntity.getPassword().equals(userRequest.getPassword())) {
+            if(userEntity.getPhone().equals(userDTO.getPhone()) && userEntity.getPassword().equals(userDTO.getPassword())) {
                 return true;
             }
         }

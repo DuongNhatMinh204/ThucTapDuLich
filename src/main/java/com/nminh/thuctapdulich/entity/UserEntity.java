@@ -1,18 +1,28 @@
 package com.nminh.thuctapdulich.entity;
 
-import com.nminh.thuctapdulich.emuns.Role;
+import com.nminh.thuctapdulich.enums.Role;
+
+import java.time.LocalDate;
 
 public class UserEntity {
     private Long id ;
-    private String username ;
+
+    private String phone;
     private String password ;
+    private String fullName;
+    private String email ;
+    private LocalDate birthday ;
     private Role role ;
 
     public UserEntity() {}
-    public UserEntity(Long id, String username, String password, Role role) {
+
+    public UserEntity(Long id, String phone, String password, String fullName, String email, LocalDate birthday, Role role) {
         this.id = id;
-        this.username = username;
+        this.phone = phone;
         this.password = password;
+        this.fullName = fullName;
+        this.email = email;
+        this.birthday = birthday;
         this.role = role;
     }
 
@@ -24,12 +34,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -38,6 +48,30 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public Role getRole() {
@@ -50,6 +84,6 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return id + "," + username + "," + password + "," + role;
+        return id+","+phone+","+password+","+fullName+","+email+","+birthday+","+role;
     }
 }

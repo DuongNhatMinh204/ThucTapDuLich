@@ -1,4 +1,4 @@
-package com.nminh.thuctapdulich.emuns;
+package com.nminh.thuctapdulich.enums;
 
 public enum Role {
     ADMIN,

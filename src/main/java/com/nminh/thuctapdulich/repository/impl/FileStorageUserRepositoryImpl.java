@@ -1,6 +1,6 @@
 package com.nminh.thuctapdulich.repository.impl;
 
-import com.nminh.thuctapdulich.emuns.Role;
+import com.nminh.thuctapdulich.enums.Role;
 import com.nminh.thuctapdulich.entity.UserEntity;
 import com.nminh.thuctapdulich.repository.FileStorageUserRepository;
 import org.springframework.stereotype.Repository;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
@@ -34,9 +35,12 @@ public class FileStorageUserRepositoryImpl implements FileStorageUserRepository 
                 UserEntity userEntity = new UserEntity();
 
                 userEntity.setId(Long.valueOf(data[0]));
-                userEntity.setUsername(data[1]);
+                userEntity.setPhone(data[1]);
                 userEntity.setPassword(data[2]);
-                userEntity.setRole(Role.valueOf(data[3]));
+                userEntity.setFullName(data[3]);
+                userEntity.setEmail(data[4]);
+                userEntity.setBirthday(LocalDate.parse(data[5]));
+                userEntity.setRole(Role.valueOf(data[6]));
 
                 users.add(userEntity);
             }
