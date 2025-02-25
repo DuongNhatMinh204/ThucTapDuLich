@@ -1,7 +1,7 @@
 package com.nminh.thuctapdulich.repository.impl;
 
 import com.nminh.thuctapdulich.enums.Role;
-import com.nminh.thuctapdulich.entity.UserEntity;
+import com.nminh.thuctapdulich.entity.User;
 import com.nminh.thuctapdulich.repository.FileStorageUserRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class FileStorageUserRepositoryImpl implements FileStorageUserRepository {
     private static final String FILE_USER = "user.txt";
     @Override
-    public  void saveUserToFile( UserEntity userEntity) {
+    public  void saveUserToFile( User userEntity) {
         try(FileWriter writer = new FileWriter(FILE_USER, true)) { // true : viet them
             writer.write(userEntity.toString());
             writer.write("\n");
@@ -25,14 +25,14 @@ public class FileStorageUserRepositoryImpl implements FileStorageUserRepository 
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
-        List<UserEntity> users = new ArrayList<>();
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         try(FileReader reader = new FileReader(FILE_USER)) {
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] data = line.split(",");
-                UserEntity userEntity = new UserEntity();
+                User userEntity = new User();
 
                 userEntity.setId(Long.valueOf(data[0]));
                 userEntity.setPhone(data[1]);

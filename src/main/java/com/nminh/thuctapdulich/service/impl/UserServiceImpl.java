@@ -1,8 +1,10 @@
 package com.nminh.thuctapdulich.service.impl;
 
+import com.nminh.thuctapdulich.enums.ErrorCode;
+import com.nminh.thuctapdulich.exception.AppException;
 import com.nminh.thuctapdulich.model.request.UserLoginRequest;
 import com.nminh.thuctapdulich.enums.Role;
-import com.nminh.thuctapdulich.entity.UserEntity;
+import com.nminh.thuctapdulich.entity.User;
 import com.nminh.thuctapdulich.model.request.UserRequest;
 import com.nminh.thuctapdulich.repository.impl.FileStorageUserRepositoryImpl;
 import com.nminh.thuctapdulich.repository.impl.ID_Manage;
@@ -16,9 +18,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
+
     public boolean userExists(String phone) {
-        List<UserEntity> listUserEntity = fileStorageUserImpl.getAllUsers();
-        for (UserEntity userEntity : listUserEntity) {
+        List<User> listUserEntity = fileStorageUserImpl.getAllUsers();
+        for (User userEntity : listUserEntity) {
             if (userEntity.getPhone().equals(phone)) {
                 return true;
             }
@@ -26,12 +29,12 @@ public class UserServiceImpl implements UserService {
         return false;
     }
     @Override
-    public boolean createUser(UserRequest userRequest) {
+    public User createUser(UserRequest userRequest) {
 
         if (userExists(userRequest.getPhone())) {
-            return false;
+            throw new AppException(ErrorCode.USER_EXIST); // nếu tồn tại thì nhả ra exception
         }
-        UserEntity userEntity = new UserEntity();
+        User userEntity = new User();
         // convert user request to user entity
         userEntity.setPhone(userRequest.getPhone());
         userEntity.setPassword(userRequest.getPassword());
@@ -45,18 +48,20 @@ public class UserServiceImpl implements UserService {
 
         fileStorageUserImpl.saveUserToFile(userEntity);
 
-        return true;
+        return userEntity;
     }
 
     @Override
-    public boolean loginUser(UserLoginRequest userDTO) {
+    public User loginUser(UserLoginRequest userDTO) {
         FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
-        List<UserEntity> listUserEntity = fileStorageUserImpl.getAllUsers();
-        for (UserEntity userEntity : listUserEntity) {
-            if(userEntity.getPhone().equals(userDTO.getPhone()) && userEntity.getPassword().equals(userDTO.getPassword())) {
-                return true;
+        List<User> listUser = fileStorageUserImpl.getAllUsers(); // lấy toàn bộ danh sách
+
+        for (User user : listUser) {
+            if(user.getPhone().equals(userDTO.getPhone()) && user.getPassword().equals(userDTO.getPassword())) {
+                return user;
             }
         }
-        return false;
+        throw new AppException(ErrorCode.LOGIN_FAILED) ;
     }
+
 }

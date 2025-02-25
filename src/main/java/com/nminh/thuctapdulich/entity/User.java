@@ -4,7 +4,7 @@ import com.nminh.thuctapdulich.enums.Role;
 
 import java.time.LocalDate;
 
-public class UserEntity {
+public class User {
     private Long id ;
 
     private String phone;
@@ -14,9 +14,10 @@ public class UserEntity {
     private LocalDate birthday ;
     private Role role ;
 
-    public UserEntity() {}
 
-    public UserEntity(Long id, String phone, String password, String fullName, String email, LocalDate birthday, Role role) {
+    public User() {}
+
+    public User(Long id, String phone, String password, String fullName, String email, LocalDate birthday, Role role) {
         this.id = id;
         this.phone = phone;
         this.password = password;
