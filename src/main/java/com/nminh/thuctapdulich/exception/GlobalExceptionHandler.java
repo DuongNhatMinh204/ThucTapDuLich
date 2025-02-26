@@ -39,6 +39,10 @@ public class GlobalExceptionHandler {
                     return ResponseEntity.status(ErrorCode.PHONE_INVALID_FORMAT.getStatusCode())
                             .body(new ApiResponse(ErrorCode.PHONE_INVALID_FORMAT.getCode(),
                                     ErrorCode.PHONE_INVALID_FORMAT.getMessage()));
+                case "destination" :
+                    return ResponseEntity.status(ErrorCode.DESTINATION_IS_EMPTY.getStatusCode())
+                            .body(new ApiResponse(ErrorCode.DESTINATION_IS_EMPTY.getCode(),
+                                    ErrorCode.DESTINATION_IS_EMPTY.getMessage()));
             }
         }
         return ResponseEntity.badRequest().body(new ApiResponse<>(400,"Validator"));

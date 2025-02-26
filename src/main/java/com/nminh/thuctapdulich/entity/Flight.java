@@ -4,19 +4,36 @@ import com.nminh.thuctapdulich.enums.TicketClass;
 
 import java.util.List;
 
-// 1-n với tour
+// 1-1 với book
 public class Flight {
     private Long id ;
     private TicketClass ticketClass;
     private String airlineName;
-    private List<Tour> listTour;
+    private Double price;
+    private Book book;
     public  Flight() {}
 
-    public Flight(Long id, TicketClass ticketClass, String airlineName, List<Tour> listTour) {
+    public Flight(Long id, TicketClass ticketClass, String airlineName, Double price) {
         this.id = id;
         this.ticketClass = ticketClass;
         this.airlineName = airlineName;
-        this.listTour = listTour;
+        this.price = price;
+    }
+
+    public Flight(Long id, TicketClass ticketClass, String airlineName, Double price, Book book) {
+        this.id = id;
+        this.ticketClass = ticketClass;
+        this.airlineName = airlineName;
+        this.price = price;
+        this.book = book;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Long getId() {
@@ -43,11 +60,17 @@ public class Flight {
         this.airlineName = airlineName;
     }
 
-    public List<Tour> getListTour() {
-        return listTour;
+
+    public Double getPrice() {
+        return price;
     }
 
-    public void setListTour(List<Tour> listTour) {
-        this.listTour = listTour;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return id+","+ticketClass+","+airlineName+","+price+","+book.id;
     }
 }

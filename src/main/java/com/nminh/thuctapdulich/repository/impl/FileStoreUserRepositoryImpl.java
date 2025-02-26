@@ -2,7 +2,7 @@ package com.nminh.thuctapdulich.repository.impl;
 
 import com.nminh.thuctapdulich.enums.Role;
 import com.nminh.thuctapdulich.entity.User;
-import com.nminh.thuctapdulich.repository.FileStorageUserRepository;
+import com.nminh.thuctapdulich.repository.FileStoreUserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
-public class FileStorageUserRepositoryImpl implements FileStorageUserRepository {
+public class FileStoreUserRepositoryImpl implements FileStoreUserRepository {
     private static final String FILE_USER = "user.txt";
     @Override
     public  void saveUserToFile( User userEntity) {

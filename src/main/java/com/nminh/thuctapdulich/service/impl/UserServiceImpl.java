@@ -6,7 +6,7 @@ import com.nminh.thuctapdulich.model.request.UserLoginRequest;
 import com.nminh.thuctapdulich.enums.Role;
 import com.nminh.thuctapdulich.entity.User;
 import com.nminh.thuctapdulich.model.request.UserRequest;
-import com.nminh.thuctapdulich.repository.impl.FileStorageUserRepositoryImpl;
+import com.nminh.thuctapdulich.repository.impl.FileStoreUserRepositoryImpl;
 import com.nminh.thuctapdulich.repository.impl.ID_Manage;
 import com.nminh.thuctapdulich.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
+    FileStoreUserRepositoryImpl fileStorageUserImpl = new FileStoreUserRepositoryImpl();
 
     public boolean userExists(String phone) {
         List<User> listUserEntity = fileStorageUserImpl.getAllUsers();
@@ -35,26 +35,26 @@ public class UserServiceImpl implements UserService {
             throw new AppException(ErrorCode.USER_EXIST); // nếu tồn tại thì nhả ra exception
         }
 
-        User userEntity = new User();
+        User user = new User();
         // convert user request to user entity
-        userEntity.setPhone(userRequest.getPhone());
-        userEntity.setPassword(userRequest.getPassword());
-        userEntity.setFullName(userRequest.getFullName());
-        userEntity.setEmail(userRequest.getEmail());
-        userEntity.setBirthday(userRequest.getBirthday());
-        userEntity.setId(ID_Manage.getLastId()); // tao id moi
-        userEntity.setRole(Role.GUEST);
+        user.setPhone(userRequest.getPhone());
+        user.setPassword(userRequest.getPassword());
+        user.setFullName(userRequest.getFullName());
+        user.setEmail(userRequest.getEmail());
+        user.setBirthday(userRequest.getBirthday());
+        user.setId(ID_Manage.getLastIdUser()); // tao id moi
+        user.setRole(Role.GUEST);
 
-        ID_Manage.saveLastId(userEntity.getId()+1L); //luu id moi nhat +1
+        ID_Manage.saveLastIdUser(user.getId()+1L); //luu id moi nhat +1
 
-        fileStorageUserImpl.saveUserToFile(userEntity);
+        fileStorageUserImpl.saveUserToFile(user);
 
-        return userEntity;
+        return user;
     }
 
     @Override
     public User loginUser(UserLoginRequest userDTO) {
-        FileStorageUserRepositoryImpl fileStorageUserImpl = new FileStorageUserRepositoryImpl();
+        FileStoreUserRepositoryImpl fileStorageUserImpl = new FileStoreUserRepositoryImpl();
         List<User> listUser = fileStorageUserImpl.getAllUsers(); // lấy toàn bộ danh sách
 
         for (User user : listUser) {

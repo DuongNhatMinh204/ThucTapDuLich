@@ -7,7 +7,7 @@ public class Payment {
     private PaymentStatus paymentStatus ;
 
     public Payment() {}
-    public Payment(Long id, PaymentStatus paymentStatus, Tour tour) {
+    public Payment(Long id, PaymentStatus paymentStatus) {
         this.id = id;
         this.paymentStatus = paymentStatus;
     }
