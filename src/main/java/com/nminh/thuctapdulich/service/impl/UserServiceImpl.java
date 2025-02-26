@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
         if (userExists(userRequest.getPhone())) {
             throw new AppException(ErrorCode.USER_EXIST); // nếu tồn tại thì nhả ra exception
         }
+
         User userEntity = new User();
         // convert user request to user entity
         userEntity.setPhone(userRequest.getPhone());

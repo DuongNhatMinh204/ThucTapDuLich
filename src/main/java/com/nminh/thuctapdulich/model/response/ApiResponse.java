@@ -8,6 +8,21 @@ public class ApiResponse<T> {
     private String message ;
     private T result;
 
+    public ApiResponse(){
+
+    }
+
+    public ApiResponse(int code, String message, T result) {
+        this.code = code;
+        this.message = message;
+        this.result = result;
+    }
+
+    public ApiResponse(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public int getCode() {
         return code;
     }

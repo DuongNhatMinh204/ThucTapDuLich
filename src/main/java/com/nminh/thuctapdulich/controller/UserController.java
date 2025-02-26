@@ -5,6 +5,7 @@ import com.nminh.thuctapdulich.model.request.UserLoginRequest;
 import com.nminh.thuctapdulich.model.request.UserRequest;
 import com.nminh.thuctapdulich.model.response.ApiResponse;
 import com.nminh.thuctapdulich.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ApiResponse<User> register(@RequestBody UserRequest userRequest) {
+    public ApiResponse<User> register( @Valid  @RequestBody UserRequest userRequest) {
        ApiResponse<User> apiResponse = new ApiResponse<>();
        apiResponse.setResult(userService.createUser(userRequest)); // data trả ra là user
        apiResponse.setMessage("success"); // nếu không thêm được thif exception đã xu ly và kh chạy dc đến dòng này

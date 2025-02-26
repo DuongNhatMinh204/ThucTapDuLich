@@ -7,6 +7,8 @@ public enum ErrorCode {
 
     USER_EXIST(1001,"User existed",HttpStatus.BAD_REQUEST),
     LOGIN_FAILED(1002,"Login failed",HttpStatus.UNAUTHORIZED),
+    EMAIL_INVALID_FORMAT(1003,"Invalid email format",HttpStatus.BAD_REQUEST),
+    PHONE_INVALID_FORMAT(1004,"Invalid phone format",HttpStatus.BAD_REQUEST),
     ;
     private final int code;
     private final String message;

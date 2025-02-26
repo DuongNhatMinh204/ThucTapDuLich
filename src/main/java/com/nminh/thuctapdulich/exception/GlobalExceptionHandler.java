@@ -3,6 +3,7 @@ package com.nminh.thuctapdulich.exception;
 import com.nminh.thuctapdulich.enums.ErrorCode;
 import com.nminh.thuctapdulich.model.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.method.MethodValidationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,5 +25,22 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(errorCode.getMessage());
 
         return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
+    }
+    @ExceptionHandler(value = MethodArgumentNotValidException.class) //xử lý các exception valid từ các request body
+    ResponseEntity<ApiResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError(); // lấy lỗi đầu tiên trong danh sách
+        if(fieldError != null){
+            switch (fieldError.getField()){
+                case "email":
+                    return ResponseEntity.status(ErrorCode.EMAIL_INVALID_FORMAT.getStatusCode())
+                            .body(new ApiResponse(ErrorCode.EMAIL_INVALID_FORMAT.getCode(),
+                                    ErrorCode.EMAIL_INVALID_FORMAT.getMessage()));
+                case "phone":
+                    return ResponseEntity.status(ErrorCode.PHONE_INVALID_FORMAT.getStatusCode())
+                            .body(new ApiResponse(ErrorCode.PHONE_INVALID_FORMAT.getCode(),
+                                    ErrorCode.PHONE_INVALID_FORMAT.getMessage()));
+            }
+        }
+        return ResponseEntity.badRequest().body(new ApiResponse<>(400,"Validator"));
     }
 }
