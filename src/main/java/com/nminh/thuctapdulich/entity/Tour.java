@@ -1,6 +1,7 @@
 package com.nminh.thuctapdulich.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Tour {
     private Long id ;
@@ -9,22 +10,21 @@ public class Tour {
     private Date startDate ;
     private Date endDate ;
     private double totalPrice ;
-    private User user ;
-    private Flight flight ;
-    private Hotel hotel ;
+    private Long flightId ;
+    private Long hotelId ;
     private Payment payment ;
 
     public Tour() {}
-    public Tour(Long id, String destination, int numberOfPeople, Date startDate, Date endDate, double totalPrice, User user, Flight flight, Hotel hotel, Payment payment) {
+
+    public Tour(Long id, String destination, int numberOfPeople, Date startDate, Date endDate, double totalPrice, Long flightId, Long hotelId, Payment payment) {
         this.id = id;
         this.destination = destination;
         this.numberOfPeople = numberOfPeople;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalPrice = totalPrice;
-        this.user = user;
-        this.flight = flight;
-        this.hotel = hotel;
+        this.flightId = flightId;
+        this.hotelId = hotelId;
         this.payment = payment;
     }
 
@@ -76,28 +76,21 @@ public class Tour {
         this.totalPrice = totalPrice;
     }
 
-    public User getUser() {
-        return user;
+
+    public Long getFlightId() {
+        return flightId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFlightId(Long flightId) {
+        this.flightId = flightId;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public Long getHotelId() {
+        return hotelId;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Payment getPayment() {

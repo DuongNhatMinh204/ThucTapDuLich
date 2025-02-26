@@ -3,6 +3,7 @@ package com.nminh.thuctapdulich.entity;
 import com.nminh.thuctapdulich.enums.Role;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class User {
     private Long id ;
@@ -13,7 +14,6 @@ public class User {
     private String email ;
     private LocalDate birthday ;
     private Role role ;
-
 
     public User() {}
 
@@ -82,6 +82,7 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {

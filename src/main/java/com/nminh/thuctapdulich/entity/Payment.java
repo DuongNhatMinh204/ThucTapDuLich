@@ -5,13 +5,11 @@ import com.nminh.thuctapdulich.enums.PaymentStatus;
 public class Payment {
     private Long id ;
     private PaymentStatus paymentStatus ;
-    private Tour tour ;
 
     public Payment() {}
     public Payment(Long id, PaymentStatus paymentStatus, Tour tour) {
         this.id = id;
         this.paymentStatus = paymentStatus;
-        this.tour = tour;
     }
 
     public Long getId() {
@@ -30,11 +28,5 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    public Tour getTour() {
-        return tour;
-    }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
-    }
 }
